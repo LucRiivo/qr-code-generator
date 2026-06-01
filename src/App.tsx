@@ -62,7 +62,14 @@ export default function App() {
 
   const handleDownload = () => {
     const name = mode === 'whatsapp' ? 'whatsapp-qr' : 'link-qr'
-    const qr = new QRCodeStyling(options)
+    const size = 2048
+    const qr = new QRCodeStyling({
+      ...options,
+      width: size,
+      height: size,
+      margin: 32,
+      type: fileFormat === 'svg' ? 'svg' : 'canvas',
+    })
     qr.download({ name, extension: fileFormat })
   }
 
