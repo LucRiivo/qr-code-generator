@@ -31,12 +31,15 @@ export default function App() {
 
   const options: Options = useMemo(
     () => ({
-      width: 320,
-      height: 320,
+      width: 440,
+      height: 440,
       type: 'svg',
       data,
-      margin: 8,
-      qrOptions: { errorCorrectionLevel: 'H' },
+      margin: 16,
+      // Only use max error correction when a logo punches out the center.
+      // Without a logo, the lowest level keeps the grid as sparse as possible
+      // → the largest, crispest modules for the given data.
+      qrOptions: { errorCorrectionLevel: logo ? 'H' : 'L' },
       dotsOptions: { color: fgColor, type: dotType },
       cornersSquareOptions: { color: fgColor, type: 'extra-rounded' },
       cornersDotOptions: { color: fgColor, type: 'dot' },
@@ -45,7 +48,7 @@ export default function App() {
       imageOptions: {
         crossOrigin: 'anonymous',
         margin: 4,
-        imageSize: 0.35,
+        imageSize: 0.28,
         hideBackgroundDots: true,
       },
     }),
